@@ -19,6 +19,10 @@ public class Expense {
     @JoinColumn(name = "created_by_id")
     User createdBy;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    Group group;
+
     @Enumerated(EnumType.STRING)
     SplitType type;
 }

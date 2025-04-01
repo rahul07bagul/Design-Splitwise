@@ -13,11 +13,11 @@ import java.util.Map;
 @Component
 public class PercentageSplitStrategy implements SplitStrategy {
     @Override
-    public List<Split> calculateSplits(Expense expense, ExpenseSplits expenseSplits, List<User> users){
+    public List<Split> calculateSplits(Expense expense, ExpenseSplits expenseSplits){
         List<Split> splits = new ArrayList<>();
         Map<String, Double> percentages = expenseSplits.getPercentages();
 
-        for(User user : users){
+        for(User user : expenseSplits.getUsers()) {
             Split split = new Split();
             split.setUser(user);
             split.setExpense(expense);

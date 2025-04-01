@@ -36,6 +36,20 @@ public class ExpenseController {
         return new ResponseEntity<>(expenseId, HttpStatus.CREATED);
     }
 
+    @PostMapping("/create/expense/{groupId}")
+    public ResponseEntity<?> createExpense(@PathVariable String groupId, @RequestBody ExpenseRequest request) {
+        Expense expense = new Expense();
+        expense.setAmount(request.getAmount());
+        expense.setDescription(request.getDescription());
+        expense.setName(request.getName());
+        expense.setType(request.getSplitType());
+        expense.setCreatedBy(userService.getUser(request.getCreatedById()));
+
+        String expenseId = expenseService.createGroupExpense(expense, groupId);
+
+        return new ResponseEntity<>(expenseId, HttpStatus.CREATED);
+    }
+
     @GetMapping("/expense/{expenseId}")
     public ResponseEntity<?> getExpense(@PathVariable String expenseId) {
         ExpenseResponse response = expenseService.getExpense(expenseId);
