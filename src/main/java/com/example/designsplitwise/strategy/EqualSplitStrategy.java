@@ -13,12 +13,12 @@ import java.util.List;
 @Component
 public class EqualSplitStrategy implements SplitStrategy {
     @Override
-    public List<Split>  calculateSplits(Expense expense, ExpenseSplits expenseSplits, List<User> users){
+    public List<Split>  calculateSplits(Expense expense, ExpenseSplits expenseSplits){
         List<Split> splits = new ArrayList<>();
-        int totalUsers = expenseSplits.getUserIds().size();
+        int totalUsers = expenseSplits.getUsers().size();
         double amountPerUser = expense.getAmount() / totalUsers;
 
-        for(User user : users){
+        for(User user : expenseSplits.getUsers()) {
             Split split = new Split();
             split.setUser(user);
             split.setExpense(expense);

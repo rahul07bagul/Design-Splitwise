@@ -8,5 +8,5 @@ import com.example.designsplitwise.model.User;
 import java.util.List;
 
 public interface SplitStrategy {
-    List<Split> calculateSplits(Expense expense, ExpenseSplits splits, List<User> users);
+    List<Split> calculateSplits(Expense expense, ExpenseSplits splits);
 }

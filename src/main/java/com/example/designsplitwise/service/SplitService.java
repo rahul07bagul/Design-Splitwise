@@ -15,21 +15,17 @@ import java.util.List;
 
 @Service
 public class SplitService {
-    private final UserService userService;
     private final SplitRepository splitRepository;
 
     @Autowired
-    public SplitService(SplitRepository splitRepository, UserService userService) {
+    public SplitService(SplitRepository splitRepository) {
         this.splitRepository = splitRepository;
-        this.userService = userService;
     }
 
     public void createSplits(Expense expense, ExpenseSplits expenseSplits) {
         SplitType type = expense.getType();
         SplitStrategy splitStrategy = SplitStrategyFactory.getSplitStrategy(type);
-        List<User> users = userService.getUsers(expenseSplits.getUserIds());
-        List<Split> splits = splitStrategy.calculateSplits(expense, expenseSplits, users);
-
+        List<Split> splits = splitStrategy.calculateSplits(expense, expenseSplits);
         splitRepository.saveAll(splits);
     }
 

@@ -4,6 +4,8 @@ import com.example.designsplitwise.model.SplitType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class ExpenseRequest {
@@ -13,28 +15,4 @@ public class ExpenseRequest {
     private SplitType splitType;
     private String createdById;
     private ExpenseSplits splits;
-
-    public Double getAmount() {
-        return this.amount;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public SplitType getSplitType() {
-        return this.splitType;
-    }
-
-    public String getCreatedById() {
-        return this.createdById;
-    }
-
-    public ExpenseSplits getSplits() {
-        return this.splits;
-    }
 }
