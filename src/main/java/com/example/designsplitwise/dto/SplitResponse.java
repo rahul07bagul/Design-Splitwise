@@ -10,5 +10,7 @@ public class SplitResponse {
     private String id;
     private User user;
     private Double amount;
+    private Double settlementAmount;
+    private boolean isSettled;
     private boolean isOwing;
 }

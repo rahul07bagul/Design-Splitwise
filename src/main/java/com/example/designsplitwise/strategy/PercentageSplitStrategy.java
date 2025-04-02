@@ -23,7 +23,7 @@ public class PercentageSplitStrategy implements SplitStrategy {
             split.setExpense(expense);
 
             Double percentage = percentages.getOrDefault(user.getId(), 0.0);
-            Double amount = percentage * 100 / expense.getAmount();
+            Double amount = expense.getAmount() * (percentage / 100.0);
 
             split.setSplitAmount(amount);
             split.setOwe(!user.getId().equals(expense.getCreatedBy().getId()));
