@@ -8,6 +8,10 @@ DesignSplitwise is a Spring Boot-based application inspired by the popular expen
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
 </p>
 
+## Class Diagram
+![LLD](https://github.com/rahul07bagul/Design-Splitwise/blob/main/assets/splitwise-class.png)
+![LLD](https://github.com/rahul07bagul/Design-Splitwise/blob/main/assets/splitwise-dto.png)
+
 ## Features
 
 - **Group Management**  
