@@ -22,4 +22,9 @@ public class Split {
 
     Double splitAmount;
     boolean isOwe;
+    private Double settledAmount = 0.0;
+
+    public boolean isSettled() {
+        return settledAmount >= splitAmount;
+    }
 }

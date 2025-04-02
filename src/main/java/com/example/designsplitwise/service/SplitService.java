@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SplitService {
@@ -31,5 +32,18 @@ public class SplitService {
 
     public List<Split> getSplitsByExpenseId(String expenseId) {
         return splitRepository.findByExpenseId(expenseId);
+    }
+
+    public List<Split> getSplitsByExpenses(List<Expense> expenses) {
+        return splitRepository.findByExpenseIn(expenses);
+    }
+
+    public Split getSplitByExpenseIdAndUserId(String expenseId, String userId) {
+        Optional<Split> optionalSplit = splitRepository.findByExpenseIdAndUserId(expenseId, userId);
+        return optionalSplit.get();
+    }
+
+    public String saveSplit(Split split) {
+        return splitRepository.save(split).getId();
     }
 }

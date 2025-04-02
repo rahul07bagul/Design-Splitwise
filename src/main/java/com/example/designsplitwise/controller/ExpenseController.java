@@ -1,5 +1,6 @@
 package com.example.designsplitwise.controller;
 
+import com.example.designsplitwise.dto.ExpenseBalanceDetail;
 import com.example.designsplitwise.dto.ExpenseRequest;
 import com.example.designsplitwise.dto.ExpenseResponse;
 import com.example.designsplitwise.model.Expense;
@@ -10,49 +11,39 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/splitwise")
 public class ExpenseController {
     private final ExpenseService expenseService;
-    private final UserService userService;
 
     @Autowired
-    public ExpenseController(ExpenseService expenseService, UserService userService) {
+    public ExpenseController(ExpenseService expenseService) {
         this.expenseService = expenseService;
-        this.userService = userService;
     }
 
     @PostMapping("/create/expense")
     public ResponseEntity<?> createExpense(@RequestBody ExpenseRequest request) {
-        Expense expense = new Expense();
-        expense.setAmount(request.getAmount());
-        expense.setDescription(request.getDescription());
-        expense.setName(request.getName());
-        expense.setType(request.getSplitType());
-        expense.setCreatedBy(userService.getUser(request.getCreatedById()));
-
-        String expenseId = expenseService.createExpense(expense, request.getSplits());
-
+        String expenseId = expenseService.createExpense(request);
         return new ResponseEntity<>(expenseId, HttpStatus.CREATED);
     }
 
     @PostMapping("/create/expense/{groupId}")
     public ResponseEntity<?> createExpense(@PathVariable String groupId, @RequestBody ExpenseRequest request) {
-        Expense expense = new Expense();
-        expense.setAmount(request.getAmount());
-        expense.setDescription(request.getDescription());
-        expense.setName(request.getName());
-        expense.setType(request.getSplitType());
-        expense.setCreatedBy(userService.getUser(request.getCreatedById()));
-
-        String expenseId = expenseService.createGroupExpense(expense, groupId);
-
+        String expenseId = expenseService.createGroupExpense(request, groupId);
         return new ResponseEntity<>(expenseId, HttpStatus.CREATED);
     }
 
     @GetMapping("/expense/{expenseId}")
     public ResponseEntity<?> getExpense(@PathVariable String expenseId) {
-        ExpenseResponse response = expenseService.getExpense(expenseId);
+        ExpenseResponse response = expenseService.getExpenseSplitById(expenseId);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/expense/user/{userId}")
+    public ResponseEntity<?> getExpenseByUserId(@PathVariable String userId) {
+        List<ExpenseBalanceDetail> detailList = expenseService.getExpenseBalanceDetailForUser(userId);
+        return ResponseEntity.ok(detailList);
     }
 }
